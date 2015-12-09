@@ -47,7 +47,7 @@
 % Add an abstract.
 \abstract{
 \noindent
-Each year the World Bank collects data on refugee migration around the world. Given the recent dislocation of millions of people due to war and regional instability, I chose to explore this data in depth. My objective was to expand my understanding of the historic trends leading up to the current refugee crisis, and develop a tool that would allow others to do the same. I used Python to extract and explore data, and then created an R Shiny application to showcase trends in year-by-year interactive visualizations as well as static tables. The data reveal startling jumps in the number of worldwide refugees in recent years, and a simultaneous decrease in the number of refugees allowed into the United States. Alarming trends, particularly in Syria and Afghanistan, point to a burgeoning crisis and massive waves of migration that are unlikely to dissipate in the immediate future. \vspace{2mm}
+Each year the World Bank (via the UN Refugee Agency) takes a data snapshot of the refugee population worldwide. Given the recent dislocation of millions of people due to war and regional instability, I chose to explore this data in depth. My objective was to expand my understanding of the historic trends leading up to the current refugee crisis, and develop a tool that would allow others to do the same. I used Python to extract and explore data, and then created an R Shiny application to showcase trends in year-by-year interactive visualizations as well as static tables. The data reveal startling jumps in the number of worldwide refugees in recent years, and a simultaneous decrease in the population of refugees in the United States. Alarming trends, particularly in Syria and Afghanistan, point to a burgeoning crisis and massive waves of migration that are unlikely to dissipate in the immediate future. \vspace{2mm}
 
 \noindent A video walk-through of this project is available at \url{https://youtu.be/m9PmDfIXqk0}\vspace{2mm}
 
@@ -74,21 +74,21 @@ With both longstanding regional conflict and the ongoing Syrian civil war contin
 
 \section{Background}
 
-The World Bank collects data annually on the number of reported refugees by country of origin and by country of asylum. I had hoped to review a longer time period, perhaps the past 100 years, but unfortunately the World Bank's data is quite sparse prior to the mid-1990s. As a result I limited my scope to the past 20 years. As my driving goal was understanding how today's refugee population compares with that of previous years, I began with simple charts showcasing the total number of refugees leaving each country in each year.\vspace{2mm}
+The World Bank collects data annually on the number of reported refugees by country of origin and by country of asylum. I had hoped to review a longer time period, perhaps the past 100 years, but unfortunately the World Bank's data is quite sparse prior to the mid-1990s. As a result I limited my scope to the past 20 years. As my driving goal was understanding how today's refugee population compares with that of previous years, I began with simple charts showcasing the worldwide number of refugees broken out by country of origin in each year.\vspace{2mm}
 
 \noindent
-Another question soon presented itself: Instead of focusing on solely the raw numbers, could I determine which countries had the highest \emph{proportion} of refugees leaving or arriving? Could there be a smaller country experiencing a large exodus that would not appear in the first graphs simply because of the original population size? To calculate refugees as a proportion of total population I downloaded a World Bank indicator detailing Total Population per country per year.\vspace{2mm}
+Another question soon presented itself: Instead of focusing on solely the raw numbers, could I determine which countries had the highest \emph{proportion} of refugees leaving? Could there be a smaller country experiencing a large exodus that would not appear in the first graphs simply because of the original population size? To calculate refugees as a proportion of total population I downloaded a World Bank indicator detailing Total Population per country per year.\vspace{2mm}
 
 \noindent
-After spending some time reviewing these data, a new question arose: How has the number of refugees given asylum in the U.S. changed in the past 20 years? As the number of worldwide refugees grows do we grant asylum to a higher or lower number of refugees?
+After spending some time reviewing these data, a new question arose: How has the refugee population in the United States changed in the past 20 years? As the number of worldwide refugees grows does the U.S. have a higher or lower number of refugees?
 These were the primary questions driving my research, and I determined that an R Shiny app would be the best tool for presenting these data.
 \section{Method}
 
-First I wished to assess the level of dislocation in terms of sheer volume. I created one plot showing the top 10 countries from which refugees left, and a second showing the top 10 countries in which refugees received asylum. This provided both an overall sense of the total scale of dislocation and indicated which countries were the most active participants (either as countries of origin or asylum).
+First I wished to assess the level of dislocation in terms of sheer volume. I created one plot showing the top 10 countries from which refugees had left, and a second showing the top 10 countries in which refugees had received asylum. This provided both an overall sense of the total scale of dislocation and indicated which countries were the most active participants (either as countries of origin or asylum).
 Next, I created two tables focused on proportionality rather than raw numbers by dividing the number of refugees by the total given population in that year. Again, I limited the tables to the top 10 highest countries. These and the plots mentioned above provide one year of data at a time. \vspace{2mm}
 
 \noindent
-I also wished to create some static charts to pinpoint critical trends without requiring users to scroll through the data year by year. I examined the top ten countries and years with the highest number of refugees (one chart for country of origin, another for country of asylum). Users can easily see the years and countries with the highest number of refugees. I also created a static graph detailing the number of refugees given asylum each year in the United States specifically.
+I also wished to create some static charts to pinpoint critical trends without requiring users to scroll through the data year by year. I examined the top ten countries and years with the highest refugee populations (one chart for country of origin, another for country of asylum). Finally, I created a static graph detailing the refugee population each year in the United States specifically.
 
 \subsection{Workflow}
 
@@ -99,7 +99,7 @@ I also wished to create some static charts to pinpoint critical trends without r
 \end{figure}
 
 
-\noindent First, I used Python and the World Bank pandas API to retrieve the three indicators (refugees by country of origin, refugees by country of asylum, and total population). After performing some transformations to the data (merging all indicators into a single dataframe, removing null values) the data were loaded into a MySQL database. Continuing to work in Python, I ran several queries on the MySQL database and stored the results in csv files. \vspace{2mm}
+\noindent First, I used Python and the World Bank pandas API to retrieve the three indicators (refugee population by country of origin, refugee population by country of asylum, and total population). After performing some transformations to the data (merging all indicators into a single dataframe, removing null values) the data were loaded into a MySQL database. Continuing to work in Python, I ran several queries on the MySQL database and stored the results in csv files. \vspace{2mm}
 
 \noindent
 Next, I created an R Shiny application that read each of the files created above and displayed their data as either a plot or a table.
@@ -154,41 +154,43 @@ Next, re-create the R Shiny app by completing the following:
 \noindent Interactive figures:
 \begin{itemize}
 \item \textbf{Total refugees counted worldwide}: The aggregate sum of the number of refugees worldwide (calculated using the country of asylum data)
-\item \textbf{Total refugees accepted into the USA}: The total number of refugees granted asylum in the United States
-\item \textbf{Where are refugees leaving}: Bar chart demonstrating the ten countries with the highest number of refugees leaving (based on the refugees by country of origin dataset)
-\item \textbf{Where are refugees going}: Bar chart demonstrating the ten countries with the highest number of refugees arriving (based on the refugees by country of asylum dataset)
+\item \textbf{Total refugee population in the USA}: The total number of refugees currently living in the United States
+\item \textbf{Where did refugees leave?}: Bar chart breaking down the worldwide refugee population by country of origin (top ten highest displayed)
+\item \textbf{Where are refugees now?}: Bar chart breaking down the worldwide refugee population by country of asylum (top ten highest displayed)
 \item \textbf{Missing countries}: Each year certain countries fail to provide data, and therefore are excluded; this table indicates which were excluded in the given year
-\item \textbf{Highest proportion leaving}: Calculates the number of refugees leaving the country as a proportion of the total population in that year; displays the top ten highest countries
+\item \textbf{Highest proportion leaving}: Calculates the number of refugees who left the country as a proportion of the total population in that year; displays the top ten highest
 \item \textbf{Highest proportion arriving}: Same as above, but for countries of asylum
 \end{itemize}
 \noindent Static figures:
 \begin{itemize}
-\item \textbf{All-time highest number leaving}: A ranking of the countries and years with the highest level of refugees leaving over the twenty year span
+\item \textbf{All-time highest number leaving}: A ranking of the countries and years with the highest refugee population by country of origin
 \item \textbf{All-time highest number arriving}: Same as above, but for countries of asylum
-\item \textbf{Number of refugees granted asylum in the USA}: The number of refugees who received asylum in the United States each year
+\item \textbf{Number of refugees granted asylum in the USA}: The refugee population in the United States each year
 \end{itemize}
 
 \section{Discussion}
 
-\noindent The R Shiny application reveals several interesting points about the evolution of the Syrian refugee crisis. As late as 2011, Syria was not among the top 10 countries with the highest dislocated populations. In fact, Syria was a top refugee destination, granting asylum to approximately 1.2 million refugees. The tide turned in 2012, when 729,000 individuals fled Syria, making it the country with the 4th-highest number of fleeing refugees. The number of Syrian refugees surged to 2.4 million in 2013, and then to 3.8 million in 2014, setting a record for the highest number of refugees leaving a single country since 1995.\vspace{2mm}
+\noindent The R Shiny application reveals several interesting points about the evolution of the Syrian refugee crisis. Leading up to 2012 Syria was one of the top destinations for refugees, annually sheltering a population of around 1.5 million asylum-seekers from other nations. The tide turned in 2012, when refugees began pouring out of Syria. In 2012 there were 729,000 Syrians seeking asylum elsewhere, the 4th-highest number in the world. The population of Syrians seeking asylum outside of Syria surged to 2.4 million in 2013, and then to 3.8 million in 2014, setting a record for the highest number of refugees from a single country since 1995.\vspace{2mm}
 
-\noindent A similar jump occurred in Afghanistan between 2000 and 2001. The late 1990s saw relatively low levels of refugees worldwide. But in 2001, the number of refugees leaving Afghanistan jumped to 3.8 million, nearly matching the record high held today by Syria. The number dropped the following year to about 2.5 million, but Afghanistan continued to lose between 2 and 3 million refugees each year through 2014.
-While the number of refugees worldwide has been growing, the number granted asylum in the U.S. has been declining. In 1995 the United States accepted 623,294 refugees, while in 2014 it accepted only 267,222. This was a moderate increase from the lowest point of 262,023 in 2012, but is still very low compared to historic rates and the worldwide number of refugees.
+\noindent A similar jump occurred in Afghanistan between 2000 and 2001. The late 1990s saw relatively low levels of refugees worldwide. But in 2001, the number of Afghans seeking asylum outside of Afghanistan jumped to 3.8 million, nearly matching the record high held today by Syria. The number dropped the following year to about 2.5 million, but Afghanistan remained above 2 million through 2014.\vspace{2mm}
+
+\noindent 
+Since 1995 the refugee population in the United States has been declining. In 1995 the United States was home to 623,294 refugees, while in 2014 the population had dimished to 267,222. 2014 represented a moderate increase from the lowest population point of 262,023 in 2012, but is still very low compared to historic rates and the worldwide number of refugees.
 
 
 \subsection{Learnings}
 
-\noindent Retrieving the data required for this project taught me a great deal about working with APIs and storing and retrieving data from MySQL databases in Python. In addition, creating the plots in R gave me an opportunity to learn more about ggplot, and about the inner workings of R Shiny applications. These were skills we had touched upon in class, and I was happy to have the opportunity to solidify my understanding of these concepts while also exploring a topic of interest to me.\vspace{2mm}
+\noindent In order to understand the World Bank's data I had to spend a lot of time familiarizing myself with the definition of a refugee, and the policies surrounding the numbers. For example, the U.S. refugee population displays a sudden jump from 379,340 in 2005 to to 843,498 in 2006. I could not find any data indicating that the number of accepted refugees increased, and was at a loss to explain this jump. However, exhaustive research in the UNHCR's website revealed that in 2006 the agency changed it's definition of refugee to include individuals in resettlement programs. The next year it changed the definition back to its original form, which excluded those programs. (This explanation was found on page 11 of the UNHCR 2007 yearbook: \url{http://www.unhcr.org/4981c4812.html}) Without background knowledge of refugee policies these types of trends are extremely confusing. Despite the challenge it posed, it was gratifying to learn so much about refugee policies, and I would like to continue exploring this in the future. \vspace{2mm}
 
-\noindent Regarding the data, I was surprised to learn that Jordan has accepted more than 2 million refugees per year for nearly a decade. Media coverage tends to focus on countries like Germany, Turkey, and France as major asylum destinations, and the narrative around Jordan is not as often told. I believe many refugees ultimately move from Jordan to other asylum locations, and I would like to know more about the refugees' impact on Jordan. 
+\noindent Regarding programming skills, this project taught me a great deal about working with APIs, storing and retrieving data from MySQL databases in Python, using ggplot, and the inner workings of R Shiny applications. 
 
 \subsection{Challenges}
 
-\noindent The biggest disappointment with the data was the limited scope in terms of years. The insights revealed could have been richer if data prior to the mid-1990s were available. In addition, I could not see which refugees ultimately ended in which country of asylum. It would have made for a more interesting analysis if I could trace refugees to their ultimate destination, instead of simply looking at overall patterns. For example, the number of refugees accepted into the United States spiked in 2006, and it would be interesting to see those refugees' countries of origin. However, despite these limitations I still learned a great deal about refugee migration trends over the past two decades.
+\noindent The biggest challenge with the data was that it was a population snapshot rather than a description of the inflow and outflow of refugee populations. For example, I can see that Jordan is home to approximately 2 million refugees a year. However, I cannot determine whether this is a static population or a large volume of refugee traffic passing in and out of the country. The insights revealed could have been richer if inflow/outflow data were available. In addition, I could not see which refugees ultimately ended in which country of asylum. It would have made for a more interesting analysis if I could trace refugees to their ultimate destination, instead of simply looking at overall patterns. 
 
 \section{Conclusion}
 
-\noindent My primary goal was to create a tool exploring the historical context and scale of today's refugee crisis. I explored data about where refugees left and where they went during the twenty years between 1995 and 2014, including trends in the United States specifically. I learned that a record number of refugees left Syria in 2014, while the number of refugees accepted into the United States was at a historic low. A similar exodus occurred in Afghanistan in 2001, and more than a decade later Afghanistan continues to lose more refugees than nearly any other country. In light of these data, I concluded that today's refugee crisis reflects a uniquely devastating level of displacement, and if these trends continue, will remain an extraordinary challenge for decades to come. The refugee crisis is far from over, and a solution must be found to avoid further destabilization to an already fraught region.
+\noindent My primary goal was to create a tool exploring the historical context and scale of today's refugee crisis. I explored data about where refugees left and where they went during the twenty years between 1995 and 2014, including trends in the United States specifically. I learned that a record number of Syrians sought asylum in 2014, while the refugee population in the United States was at a historic low. A similar exodus occurred in Afghanistan in 2001, and more than a decade later Afghanistan continues have a large population of individuals seeking asylum elsewhere. In light of these data, I concluded that today's refugee crisis reflects a uniquely devastating level of displacement, and if these trends continue, will remain an extraordinary challenge for decades to come. The refugee crisis is far from over, and a solution must be found to avoid further destabilization to an already fraught region.
 
 
 \end{document}

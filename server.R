@@ -21,27 +21,27 @@ names(totalAsylum)[names(totalAsylum)=="asylum_total"] <- "Total # refugees coun
 originPercentage <- read.csv('origin_percentage.csv', 
                              header=TRUE, sep=",", quote="\"")
 
-names(originPercentage)[names(originPercentage)=="origin_over_pop"] <- "% of total pop. leaving"
+names(originPercentage)[names(originPercentage)=="origin_over_pop"] <- "refugees as % of country population"
 
 asylumPercentage <- read.csv('asylum_percentage.csv', 
                              header=TRUE, sep=",", quote="\"")
 
-names(asylumPercentage)[names(asylumPercentage)=="asylum_over_pop"] <- "% of total pop. arriving"
+names(asylumPercentage)[names(asylumPercentage)=="asylum_over_pop"] <- "refugees as % of country population"
 
 originHighs <- read.csv('highest_origin.csv', 
                              header=TRUE, sep=",", quote="\"")
 
-names(originHighs)[names(originHighs)=="total_refugees"] <- "# of refugees leaving"
+names(originHighs)[names(originHighs)=="total_refugees"] <- "# of refugees"
 
 asylumHighs <- read.csv('highest_asylum.csv', 
                              header=TRUE, sep=",", quote="\"")
 
-names(asylumHighs)[names(asylumHighs)=="total_refugees"] <- "# of refugees arriving"
+names(asylumHighs)[names(asylumHighs)=="total_refugees"] <- "# of refugees"
 
 USA <- read.csv('USA.csv', 
                         header=TRUE, sep=",", quote="\"")
 
-names(USA)[names(USA)=="asylum"] <- "Total # refugees accepted in the USA:"
+names(USA)[names(USA)=="asylum"] <- "Total refugee population in the USA:"
 
 missingData <- read.csv('missing_data.csv', 
                 header=TRUE, sep=",", quote="\"")
@@ -56,7 +56,7 @@ shinyServer(function(input, output) {
       theme(axis.text.x=element_text(angle=90, color="black", size=12)) +
       theme(axis.text.y=element_text(color="black")) +
       xlab("") +
-      ylab("# of Refugees Leaving (in thousands)") +
+      ylab("# of Refugees") +
       geom_text(aes(label=asylum), vjust=-.1) +
       expand_limits(y=c(0, 4000))
   })
@@ -67,7 +67,7 @@ shinyServer(function(input, output) {
       theme(axis.text.x=element_text(angle=90, color="black", size=12)) +
       theme(axis.text.y=element_text(color="black")) +
       xlab("") +
-      ylab("# of Refugees Arriving (in thousands)") +
+      ylab("# of Refugees") +
       geom_text(aes(label=origin), vjust=-.1) +
       expand_limits(y=c(0, 4000))
   })
@@ -93,17 +93,17 @@ shinyServer(function(input, output) {
   }, include.rownames=FALSE)
   
   output$USA <- renderTable({
-    subset(subset(USA, year == input$year), select = names(USA)[names(USA)=="Total # refugees accepted in the USA:"])
+    subset(subset(USA, year == input$year), select = names(USA)[names(USA)=="Total refugee population in the USA:"])
   }, include.rownames=FALSE)
   
   output$USAPlot <- renderPlot({
-    ggplot(data=USA, aes(x=year, y=`Total # refugees accepted in the USA:`)) +
+    ggplot(data=USA, aes(x=year, y=`Total refugee population in the USA:`)) +
       geom_bar(stat="identity", fill="dark green") +
       theme(axis.text.x=element_text(angle=90, color="black", size=12)) +
       theme(axis.text.y=element_text(color="black")) +
       xlab("") +
       ylab("# of Refugees Accepted") +
-      geom_text(aes(label=`Total # refugees accepted in the USA:`), vjust=-.1)
+      geom_text(aes(label=`Total refugee population in the USA:`), vjust=-.1)
   })
   
   output$missingData <- renderTable({
