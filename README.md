@@ -3,7 +3,7 @@
 
 The purpose of this project was to gain a deeper understanding of the scale of today's refugee crisis as well as the historical trends that led to this moment. Python was used to pull World Bank data via the pandas API, store and query the data using MySQL, and write all results to csv. An R Shiny application was built to read in the csv files and visualize historic refugee trends in an interactive web application.
 
-To start you may want to watch my **YouTube video walk-through** of this project. It provides detailed information on why I choose to explore this data, what my sources were, and interesting trends found in the R Shiny application. You can find it at: https://youtu.be/m9PmDfIXqk0
+To start you may want to watch my **YouTube video walk-through** of this project. It provides detailed information on why I choose to explore this data, what my sources were, and interesting trends found in the R Shiny application. You can find it at: https://youtu.be/tN6_a4sA_AA
 
 Or, you may want to start by reading the **written report**, which includes a workflow and instructions for recreating my steps. This document (WrittenReport_JS_G35169458) has been provided as both a .pdf and a .tex file.
 
